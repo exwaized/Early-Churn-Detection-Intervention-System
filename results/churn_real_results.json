@@ -1,0 +1,62 @@
+{
+  "windows": {
+    "churn_window_days": 90,
+    "value_window_days": 180
+  },
+  "rows": {
+    "train": 25767,
+    "val": 8589,
+    "test": 8589
+  },
+  "test_churn_rate": 0.2381,
+  "MEASURED": {
+    "xgboost_roc_auc": 0.6834,
+    "xgboost_pr_auc": 0.3519,
+    "logistic_roc_auc": 0.684,
+    "logistic_pr_auc": 0.3675,
+    "pr_auc_of_random_guessing": 0.2381,
+    "top_decile_cutoff_from_validation": 0.7047,
+    "high_risk_n": 1573,
+    "high_risk_churn_rate": 0.3649,
+    "lift_vs_base_rate": 1.53,
+    "share_of_all_churners_caught_in_high_risk": 0.2807,
+    "revenue_at_risk_gbp_high_risk_churners": 94014.36,
+    "revenue_at_risk_gbp_all_churners": 801618.85,
+    "share_of_churner_revenue_in_high_risk": 0.1173
+  },
+  "ASSUMPTION_SCENARIOS": {
+    "note": "save rates and cost are assumptions, not measured; run a holdout test to learn them",
+    "assumed_cost_per_contact_gbp": 2.0,
+    "break_even_save_rate": 0.0335,
+    "scenarios": [
+      {
+        "assumed_save_rate": 0.02,
+        "revenue_saved_gbp": 1880.29,
+        "contact_cost_gbp": 3146.0,
+        "net_gbp": -1265.71,
+        "roi_x": 0.6
+      },
+      {
+        "assumed_save_rate": 0.05,
+        "revenue_saved_gbp": 4700.72,
+        "contact_cost_gbp": 3146.0,
+        "net_gbp": 1554.72,
+        "roi_x": 1.49
+      },
+      {
+        "assumed_save_rate": 0.1,
+        "revenue_saved_gbp": 9401.44,
+        "contact_cost_gbp": 3146.0,
+        "net_gbp": 6255.44,
+        "roi_x": 2.99
+      },
+      {
+        "assumed_save_rate": 0.2,
+        "revenue_saved_gbp": 18802.87,
+        "contact_cost_gbp": 3146.0,
+        "net_gbp": 15656.87,
+        "roi_x": 5.98
+      }
+    ]
+  }
+}

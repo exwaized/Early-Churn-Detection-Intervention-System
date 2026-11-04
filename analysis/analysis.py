@@ -20,7 +20,7 @@ from lifelines.statistics import logrank_test
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
-from features.config import LONG_WINDOW
+from features.config import LONG_WINDOW, SHORT_WINDOW
 
 
 # ── CONFIG ────────────────────────────────────────────────────────────────────
@@ -35,8 +35,8 @@ KM_SPLITS = {
 
 COX_FEATURES = [
     "pct_change_vs_baseline", "activity_slope", "activity_acceleration",
-    "gap_trend", "avg_inter_event_gap", "session_cv_14d",
-    "sessions_7d", "avg_actions_per_session", "tenure_days",
+    "gap_trend", "avg_inter_event_gap", f"session_cv_{LONG_WINDOW}d",
+    f"sessions_{SHORT_WINDOW}d", "avg_actions_per_session", "tenure_days",
 ]
 
 
@@ -50,7 +50,7 @@ def test_h1_frequency_drop(fm: pd.DataFrame):
     assuming normality. Rank-biserial r = effect size.
     """
     print("\n── H1: Frequency drop (Mann-Whitney U) ──")
-    for col in ["sessions_7d", "sessions_14d", "active_days_7d"]:
+    for col in [f"sessions_{SHORT_WINDOW}d", f"sessions_{LONG_WINDOW}d", f"active_days_{SHORT_WINDOW}d"]:
         c = fm[fm[EVENT_COL] == 1][col].dropna()
         r = fm[fm[EVENT_COL] == 0][col].dropna()
         stat, p = stats.mannwhitneyu(c, r, alternative="less")
@@ -79,7 +79,7 @@ def test_h3_volatility(fm: pd.DataFrame):
     hypothesis validation, not final model.
     """
     print("\n── H3: Volatility vs activity (logistic odds ratios) ──")
-    cols = ["session_cv_14d", f"sessions_{LONG_WINDOW}d"]
+    cols = [f"session_cv_{LONG_WINDOW}d", f"sessions_{LONG_WINDOW}d"]
     sub  = fm[cols + [EVENT_COL]].dropna()
     X    = StandardScaler().fit_transform(sub[cols])
     y    = sub[EVENT_COL].values

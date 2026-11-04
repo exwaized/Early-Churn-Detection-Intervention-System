@@ -27,14 +27,16 @@ from sklearn.metrics import (
 )
 from xgboost import XGBClassifier
 
+from features.config import SHORT_WINDOW as SW, LONG_WINDOW as LW
+
 
 # ── 1. FEATURE COLUMNS ────────────────────────────────────────────────────────
 
 FEATURE_COLS = [
     "days_since_last_activity",
-    "sessions_7d", "sessions_14d", "active_days_7d", "active_days_14d",
+    f"sessions_{SW}d", f"sessions_{LW}d", f"active_days_{SW}d", f"active_days_{LW}d",
     "activity_slope", "activity_acceleration",
-    "session_std_14d", "session_cv_14d",
+    f"session_std_{LW}d", f"session_cv_{LW}d",
     "avg_inter_event_gap", "max_inter_event_gap", "gap_trend",
     "pct_change_vs_baseline", "flag_activity_drop",
     "avg_actions_per_session", "avg_features_per_session",

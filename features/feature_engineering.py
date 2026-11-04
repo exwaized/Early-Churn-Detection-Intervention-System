@@ -134,8 +134,8 @@ def volatility_features(history: pd.DataFrame, obs_date: pd.Timestamp) -> dict:
     daily = _daily_sessions(history, obs_date, LONG_WINDOW).values.astype(float)
     mean, std = daily.mean(), daily.std()
     return {
-        "session_std_14d": std,
-        "session_cv_14d":  std / mean if mean > 0 else np.nan,
+        f"session_std_{LONG_WINDOW}d": std,
+        f"session_cv_{LONG_WINDOW}d":  std / mean if mean > 0 else np.nan,
     }
 
 
@@ -200,7 +200,7 @@ def engagement_depth_features(history: pd.DataFrame, obs_date: pd.Timestamp) -> 
 
     agg = w.groupby("session_id").agg(
         actions=("actions_count",  "sum"),
-        features=("features_used", "nunique"),
+        features=("features_used", "mean"),
     )
     return {"avg_actions_per_session":  agg["actions"].mean(),
             "avg_features_per_session": agg["features"].mean()}

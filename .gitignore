@@ -1,0 +1,6 @@
+
+churn_features.parquet
+pipeline.log
+__pycache__/
+*.pyc
+outputs/*.pkl

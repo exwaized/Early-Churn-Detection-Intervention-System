@@ -87,6 +87,8 @@ def roi_summary(table: pd.DataFrame) -> pd.DataFrame:
 
 
 # ── ENTRY POINT ───────────────────────────────────────────────────────────────
+# NOTE: the demo below uses RANDOM probabilities and LTVs (np.random). Its output is an
+# illustration of the table format, not a result. Real-data numbers: models/evaluate_real.py.
 
 if __name__ == "__main__":
     np.random.seed(42)
